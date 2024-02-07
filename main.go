@@ -28,7 +28,7 @@ func handleProxy(w http.ResponseWriter, r *http.Request) {
 	}
 
 	allowedIPs := config.AllowedIPs
-	requestIP := r.Header.Get("X-Forwarded-For")
+	requestIP := r.RemoteAddr
 
 	authorizedIP := slices.Contains(allowedIPs, requestIP)
 
