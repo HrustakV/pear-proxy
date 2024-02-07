@@ -8,6 +8,7 @@ import (
 	"net/http/httputil"
 	"net/url"
 	"os"
+	"strings"
 )
 
 type Config struct {
@@ -28,7 +29,8 @@ func handleProxy(w http.ResponseWriter, r *http.Request) {
 	}
 
 	allowedIPs := config.AllowedIPs
-	requestIP := r.RemoteAddr
+
+	requestIP := strings.Split(r.RemoteAddr, ":")[0]
 
 	authorizedIP := slices.Contains(allowedIPs, requestIP)
 
